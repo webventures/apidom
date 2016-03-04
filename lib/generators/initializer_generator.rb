@@ -6,6 +6,7 @@ class InitializerGenerator < Rails::Generators::Base
   	filenames = ["development.rb", "test.rb", "production.rb"]
 		environment_string << "\nAPIDOMS_API_KEY=nil"
 		environment_string << "APIDOMS_APP_CODE=nil" 
+		environment_string << "APIDOMS_URL=nil" 
 
 		filenames.each do |filename|
 			File.open("#{file_paths}#{filename}", "a+"){|f| f << environment_string.join("\n")} if File.exists?("#{file_paths}#{filename}")
