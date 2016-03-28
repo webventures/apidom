@@ -30,6 +30,17 @@ module Apidom
 	    end
 	  end		
 
+		def self.renew(params)
+	    begin
+	      response = HTTParty.post build_url("/api/domains/renew"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	    response['data']
+	      rescue => e
+	      return e
+	    end
+	  end		
+
+
 		private 
 	  def self.sanitize_params params
 	    array_params = []
