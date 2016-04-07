@@ -1,5 +1,6 @@
 module Apidom
 	class Client
+
 	  def self.check_domain_availability(params)
 	    begin
 	      response = HTTParty.post build_url("/api/domains/check-domain-availability"),
@@ -33,6 +34,16 @@ module Apidom
 		def self.renew(params)
 	    begin
 	      response = HTTParty.post build_url("/api/domains/renew"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	    response['data']
+	      rescue => e
+	      return e
+	    end
+	  end		
+
+		def self.transfer(params)
+	    begin
+	      response = HTTParty.post build_url("/api/domains/transfer"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
 	    response['data']
 	      rescue => e
