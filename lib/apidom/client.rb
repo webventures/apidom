@@ -1,7 +1,7 @@
 module Apidom
 	class Client
 
-	  def self.check_domain_availability(params)
+	  def self.check_domain_availability(params)	  	
 	    begin
 	      response = HTTParty.post build_url("/api/domains/check-domain-availability"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
@@ -23,6 +23,7 @@ module Apidom
 	  
 		def self.register_domain(params)
 	    begin
+	    	params = Client.check_testing_mode_params params
 	      response = HTTParty.post build_url("/api/domains/register"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
 	    response['data']
@@ -33,6 +34,7 @@ module Apidom
 
 		def self.renew(params)
 	    begin
+	    	params = Client.check_testing_mode_params params
 	      response = HTTParty.post build_url("/api/domains/renew"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
 	    response['data']
@@ -43,6 +45,7 @@ module Apidom
 
 		def self.transfer(params)
 	    begin
+	    	params = Client.check_testing_mode_params params
 	      response = HTTParty.post build_url("/api/domains/transfer"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
 	    response['data']
@@ -53,6 +56,12 @@ module Apidom
 
 
 		private 
+
+		def self.check_testing_mode_params params
+			return params unless Rails.env.test?
+			params.merge!("testing_mode" => true)
+		end
+
 	  def self.sanitize_params params
 	    array_params = []
 	    params.each{|k,v| array_params << "#{k}=#{v}"}
