@@ -1,7 +1,18 @@
 module Apidom
 	class Client
 
-	  def self.check_domain_availability(params)	  	
+	  def self.generate_domain_name_secret(params)
+	    begin
+	      response = HTTParty.post build_url("/api/domains/generate-domain-name-secret"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	      response['data']
+	    rescue => e
+	      return e
+	    end
+	  end
+
+
+	  def self.check_domain_availability(params)
 	    begin
 	      response = HTTParty.post build_url("/api/domains/check-domain-availability"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
