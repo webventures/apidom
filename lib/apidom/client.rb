@@ -1,6 +1,17 @@
 module Apidom
 	class Client
 
+	  def self.update_contact(params)
+	    begin
+	      response = HTTParty.post build_url("/api/domains//update-contact"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	      response['data']
+	    rescue => e
+	      return e
+	    end
+	  end
+
+
 	  def self.generate_domain_name_secret(params)
 	    begin
 	      response = HTTParty.post build_url("/api/domains/generate-domain-name-secret"),
@@ -58,6 +69,17 @@ module Apidom
 	    begin
 	    	params = Client.check_testing_mode_params params
 	      response = HTTParty.post build_url("/api/domains/transfer"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	    response['data']
+	      rescue => e
+	      return e
+	    end
+	  end		
+
+		def self.get_contact(params)
+	    begin
+	    	params = Client.check_testing_mode_params params
+	      response = HTTParty.post build_url("/api/domains/get-contact"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
 	    response['data']
 	      rescue => e
