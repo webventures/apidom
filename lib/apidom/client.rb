@@ -87,6 +87,28 @@ module Apidom
 	    end
 	  end		
 
+		def self.get_server(params)
+	    begin
+	    	params = Client.check_testing_mode_params params
+	      response = HTTParty.post build_url("/api/domains/name-servers"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	    response['data']
+	      rescue => e
+	      return e
+	    end
+	  end		
+
+
+		def self.update_server(params)
+	    begin
+	    	params = Client.check_testing_mode_params params
+	      response = HTTParty.post build_url("/api/domains/update-name-servers"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	    response['data']
+	      rescue => e
+	      return e
+	    end
+	  end		
 
 		private 
 
