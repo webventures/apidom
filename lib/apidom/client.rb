@@ -27,7 +27,7 @@ module Apidom
 	    begin
 	      response = HTTParty.post build_url("/api/domains/check-domain-availability"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
-	      response['data']
+	      return response
 	    rescue => e
 	      return e
 	    end
