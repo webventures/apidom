@@ -16,7 +16,7 @@ module Apidom
 	    begin
 	      response = HTTParty.post build_url("/api/domains/generate-domain-name-secret"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
-	      response['data']
+	      return response
 	    rescue => e
 	      return e
 	    end
