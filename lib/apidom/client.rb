@@ -5,7 +5,7 @@ module Apidom
 	    begin
 	      response = HTTParty.post build_url("/api/domains//update-contact"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
-	      response['data']
+	      return response
 	    rescue => e
 	      return e
 	    end
@@ -81,8 +81,8 @@ module Apidom
 	    	params = Client.check_testing_mode_params params
 	      response = HTTParty.post build_url("/api/domains/get-contact"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
-	    response['data']
-	      rescue => e
+	    	return response
+      rescue => e
 	      return e
 	    end
 	  end		
