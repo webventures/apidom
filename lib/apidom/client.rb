@@ -1,9 +1,20 @@
 module Apidom
 	class Client
 
+	  def self.get_expiry_date(params)
+	    begin
+	      response = HTTParty.post build_url("/api/domains/get-expiry-date"),
+	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
+	      return response
+	    rescue => e
+	      return e
+	    end
+	  end
+
+
 	  def self.update_contact(params)
 	    begin
-	      response = HTTParty.post build_url("/api/domains//update-contact"),
+	      response = HTTParty.post build_url("/api/domains/update-contact"),
 	        :body => params.to_json, :headers => { 'Content-Type' => 'application/json' } 
 	      return response
 	    rescue => e
